@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import { Link, Route, Routes } from "react-router-dom";
+import axios from "axios";
+import useAxios from "axios-hooks";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [{data, loading, error}, refetch] = useAxios("https://catfact.ninja/fact");
+
+    if (loading)
+        return <p>Loading...</p>
+    if (error)
+        return <p>Error!</p>
+    return (
+        <>
+            {JSON.stringify(data)}
+        </>
+    );
 }
 
 export default App;
